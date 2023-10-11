@@ -168,8 +168,8 @@ OAuthClient.prototype.createToken = function createToken(uri) {
 
     const request = {
       url: OAuthClient.tokenEndpoint,
-      body,
-      method: 'POST',
+      data: body,
+      method: 'post',
       headers: {
         Authorization: `Basic ${this.authHeader()}`,
         'Content-Type': AuthResponse._urlencodedContentType,
@@ -209,8 +209,8 @@ OAuthClient.prototype.refresh = function refresh() {
 
     const request = {
       url: OAuthClient.tokenEndpoint,
-      body,
-      method: 'POST',
+      data: body,
+      method: 'post',
       headers: {
         Authorization: `Basic ${this.authHeader()}`,
         'Content-Type': AuthResponse._urlencodedContentType,
@@ -251,8 +251,8 @@ OAuthClient.prototype.refreshUsingToken = function refreshUsingToken(refresh_tok
 
     const request = {
       url: OAuthClient.tokenEndpoint,
-      body,
-      method: 'POST',
+      data: body,
+      method: 'post',
       headers: {
         Authorization: `Basic ${this.authHeader()}`,
         'Content-Type': AuthResponse._urlencodedContentType,
@@ -302,8 +302,8 @@ OAuthClient.prototype.revoke = function revoke(params) {
 
     const request = {
       url: OAuthClient.revokeEndpoint,
-      body,
-      method: 'POST',
+      data: body,
+      method: 'post',
       headers: {
         Authorization: `Basic ${this.authHeader()}`,
         Accept: AuthResponse._jsonContentType,
@@ -337,7 +337,7 @@ OAuthClient.prototype.getUserInfo = function getUserInfo() {
         this.environment === 'sandbox'
           ? OAuthClient.userinfo_endpoint_sandbox
           : OAuthClient.userinfo_endpoint_production,
-      method: 'GET',
+      method: 'get',
       headers: {
         Authorization: `Bearer ${this.token.access_token}`,
         Accept: AuthResponse._jsonContentType,

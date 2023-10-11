@@ -27,7 +27,7 @@
 const atob = require('atob');
 const Csrf = require('csrf');
 const queryString = require('query-string');
-const popsicle = require('popsicle');
+import { fetch } from 'popsicle'
 const os = require('os');
 const winston = require('winston');
 const path = require('path');
@@ -552,7 +552,7 @@ OAuthClient.prototype.validateToken = function validateToken() {
  * @returns response
  */
 OAuthClient.prototype.loadResponse = function loadResponse(request) {
-  return popsicle.get(request).then((response) => response);
+  return fetch(request).then((response) => response);
 };
 
 /**
@@ -561,7 +561,7 @@ OAuthClient.prototype.loadResponse = function loadResponse(request) {
  * @returns response
  */
 OAuthClient.prototype.loadResponseFromJWKsURI = function loadResponseFromJWKsURI(request) {
-  return popsicle.get(request).then((response) => response);
+  return fetch(request).then((response) => response);
 };
 
 /**

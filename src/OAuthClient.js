@@ -27,7 +27,7 @@
 const atob = require('atob');
 const Csrf = require('csrf');
 const queryString = require('query-string');
-import { fetch } from 'popsicle'
+const axios = require('axios');
 const os = require('os');
 const winston = require('winston');
 const path = require('path');
@@ -104,9 +104,8 @@ OAuthClient.scopes = {
   OpenId: 'openid',
   Intuit_name: 'intuit_name',
 };
-OAuthClient.user_agent = `Intuit-OAuthClient-JS_${
-  version.version
-}_${os.type()}_${os.release()}_${os.platform()}`;
+OAuthClient.user_agent = `Intuit-OAuthClient-JS_${version.version
+  }_${os.type()}_${os.release()}_${os.platform()}`;
 
 OAuthClient.prototype.setAuthorizeURLs = function setAuthorizeURLs(params) {
   // check if the customURL's are passed correctly
@@ -377,22 +376,22 @@ OAuthClient.prototype.makeApiCall = function makeApiCall(params) {
     const headers =
       params.headers && typeof params.headers === 'object'
         ? Object.assign(
-            {},
-            {
-              Authorization: `Bearer ${this.getToken().access_token}`,
-              Accept: AuthResponse._jsonContentType,
-              'User-Agent': OAuthClient.user_agent,
-            },
-            params.headers
-          )
+          {},
+          {
+            Authorization: `Bearer ${this.getToken().access_token}`,
+            Accept: AuthResponse._jsonContentType,
+            'User-Agent': OAuthClient.user_agent,
+          },
+          params.headers
+        )
         : Object.assign(
-            {},
-            {
-              Authorization: `Bearer ${this.getToken().access_token}`,
-              Accept: AuthResponse._jsonContentType,
-              'User-Agent': OAuthClient.user_agent,
-            }
-          );
+          {},
+          {
+            Authorization: `Bearer ${this.getToken().access_token}`,
+            Accept: AuthResponse._jsonContentType,
+            'User-Agent': OAuthClient.user_agent,
+          }
+        );
 
     const request = {
       url: params.url,
@@ -552,7 +551,7 @@ OAuthClient.prototype.validateToken = function validateToken() {
  * @returns response
  */
 OAuthClient.prototype.loadResponse = function loadResponse(request) {
-  return fetch(request).then((response) => response);
+  return axios(request).then((response) => response);
 };
 
 /**
@@ -561,7 +560,7 @@ OAuthClient.prototype.loadResponse = function loadResponse(request) {
  * @returns response
  */
 OAuthClient.prototype.loadResponseFromJWKsURI = function loadResponseFromJWKsURI(request) {
-  return fetch(request).then((response) => response);
+  return axios(request).then((response) => response);
 };
 
 /**
